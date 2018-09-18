@@ -20,7 +20,7 @@ Callbacks.prototype.remove=function (type,...arg) {
     if(this[type]){
         arg.forEach((item)=>{
             if(this.has(type,item)){
-                this[type].splice(this[type].indexOf(item),1)
+                this[type][this[type].indexOf(item)]=null;
             }
         })
     }
@@ -28,9 +28,17 @@ Callbacks.prototype.remove=function (type,...arg) {
 };
 Callbacks.prototype.fire=function (type,...arg) {
     if(this[type]){
-        this[type].forEach((item)=>{
-            item.apply(this,arg)
-        })
+      for(let i=0;i<this[type].length;i++){
+          var cur=this[type][i];
+          if(typeof cur=='function'){
+              cur.apply(this,arg);
+          }else{
+              this[type].splice(i,1);
+              i--;
+          }
+      }
+
+
     }
     return this
 };
