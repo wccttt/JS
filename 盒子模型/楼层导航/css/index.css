@@ -1,0 +1,43 @@
+html,body,div,ul,li{
+    margin: 0;
+    padding: 0;
+    -webkit-user-select: none;
+}
+html,body{
+    width: 100%;
+    background-color: #ddd;
+}
+div{
+    width:95% ;
+    margin: 0 auto;
+    color: #fff;
+    font-size: 50px;
+    text-align: center;
+}
+ul.floor{
+    width: 80px;
+    font-size: 20px;
+    border: 1px dashed rosybrown;
+    position: fixed;
+    left: 10px;
+    top: 50%;
+    margin-top: -180px;
+}
+ul,li{
+    list-style: none;
+}
+.floor li{
+    line-height: 40px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #fff;
+}
+.floor li:hover{
+    background-color: #ff4538;
+    color: #fff;
+}
+.floor li.select{
+    background-color: #ff4538;
+    color: #fff;
+}
