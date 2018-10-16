@@ -1,30 +1,4 @@
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class myPromise {
     constructor(excutor) {
         this.status = 'pending';
@@ -108,6 +82,7 @@ class myPromise {
         return this.then(null,rejectedCB)
     }
 
+//通过类来调用
 
     static all(promiseAry){
         return new Promise((resolve,reject)=>{
@@ -115,7 +90,6 @@ class myPromise {
             let result = [];
             for (let i = 0; i < promiseAry.length; i++) {
                 promiseAry[i].then(res=>{
-
                     index++;
                     result[i] = res;
                     if(index===promiseAry.length){
