@@ -10,8 +10,13 @@ const path=require('path');//node的内置模块，专门处理路径的问题
 const webpack=require('webpack');//用于访问内置插件
 const HtmlWebpackPlugin=require('html-webpack-plugin');//通过npm安装
 module.exports={
-    //入口
-    entry:"",
+    //入口，可以是单页面应用也可以是多页面输出
+    //使用 CommonsChunkPlugin 为每个页面间的应用程序共享代码创建 bundle
+    entry:{
+        pageOne: './src/pageOne/index.js',
+            pageTwo: './src/pageTwo/index.js',
+            pageThree: './src/pageThree/index.js'
+    },
     //出口
     output:{
         path:path.resolve(__dirname,'dist'),
@@ -23,8 +28,9 @@ module.exports={
     //user:表示进行转换时，应该使用哪个 loader
     module:{
         rules:[
-            {text:/\.less$/,user:"less-loader"},
-            {text:/\.txt$/,user:"raw-loader"}
+            {text:/\.js$/,use:'babel-loader',exclude:/node_modules/},
+            {text:/\.less$/,use:"less-loader"},
+            {text:/\.txt$/,use:"raw-loader"}
         ]
     },
     plugins:[
@@ -39,5 +45,35 @@ module.exports={
     mode:'production'
 }
 ```
-- 入口起点
-   - 
+- plugin(自定义一个plugin需要包括以下几点)
+```js
+//官方的例子
+const pluginName = 'ConsoleLogOnBuildWebpackPlugin';
+
+class ConsoleLogOnBuildWebpackPlugin {
+    apply(compiler) {
+        compiler.hooks.run.tap(pluginName, compilation => {
+            console.log("webpack 构建过程开始！");
+        });
+    }
+}
+```
+   - 一个javascript命名函数
+   - 插件函数的prototype上要有一个apply方法
+   - 指定一个绑定到webpack自身的事件钩子
+   - 注册一个回调函数来处理webpack实例中的指定数据
+   - 处理完成后调用webpack提供的回调
+- webpack在重要的生命周期节点上都提供了事件钩子，我们可以借此加入一些自定义的功能。我们来编写一个插件，直观地看看webpack中涉及的钩子：
+```js
+
+//check-compiler-hooks-plugin.js
+const pluginName = 'checkCompilerHooksPlugin';
+module.exports = class checkCompilerHooksPlugin {
+    apply(compiler){
+        //打印出entryOption执行完毕时Compiler暴露的钩子
+        for(var hook of Object.keys(compiler.hooks)){
+            console.log(hook);
+        }
+    }
+}
+```
