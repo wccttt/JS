@@ -74,3 +74,50 @@ Array.prototype.unshift=function () {
         return ary.length;
     };
 ```  
+### 内置类和instanceof
+   - 实例创建主要有字面量创建和构造函数方式创建
+   - 提一下构造函数创建函数的方式
+```js
+var fn=new Function("参数","函数体");
+
+```   
+   - 注意:对于基本数据类型使用字面量创建方式和构造函数创建方式结果不一样,字面量创建方式结果为一个值,构造函数创建方式结果将其变成一个对象，对于引用数据类型两种创建方式没有区别
+   - 那么instanceof：判断实例是不是当前类的实例
+   - 语法:实例 instanceof 类
+### 私有属性和狗有属性
+   - 实例既可以通过构造函数中this.属性的方式得到私有属性,
+     还可以通过__proto__拿到所属类的原型上的公有属性
+   - 问题来了怎么判断共有方法和私有方法？
+      - 1.in:共有属性和私有属性都可以判断
+      - 2.hasOwnProperty:判断是不是自己的私有属性
+      - 3.判断共有属性：有in和hasOwnProerty两者同时判断
+      - 4.xx.constructor.name:用来检测xx的数据类型 
+   - 问题又来了(...) 封装一个方法不是更好？
+```js
+//封装一个方法，检测当前属性值是否是对象的一个公有属性
+          function hasPubProperty (obj,key){
+              // 判断当前属性名是否是对象的一个属性
+              if(key in obj){
+                  // 返回值是true 你是我的属性，不确定公有或者私有
+                  if(obj.hasOwnProperty(key)){
+                      // 返回true
+                      // console.log('私有属性')
+                      return false
+                  }else{
+                      // console.log('公有属性')
+                      return true
+                  }
+              }else{
+                  //console.log('sorry 你不是我的属性')
+                  return false
+              }
+              return key in obj && !obj.hasOwnProperty(key)
+          }
+
+
+```     
+### ES6里面的类(class)
+
+### 终于到正文了，我们常用到及继承的几种方式
+
+   
