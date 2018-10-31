@@ -59,5 +59,6 @@ Page1Render.init().change();
 //5.返回值:如果return基本数据类型不会影响实例this的结果,如果return一个引用数据类型就会影响实例的结果,此时实例就变成了你return的东西了
 
 ```
+- 发布订阅模式
 
   
