@@ -62,6 +62,7 @@ class  Demo extends Component{
     componentWillUnmount(){
         //卸载的啥时候触发的钩子函数
         //组件将要卸载时调用，一些事件监听和定时器需要在此时清除。
+        //那怎么卸载呢，看下面
     }
     
 }
@@ -82,4 +83,8 @@ export default Demo;
    - componentWillUpdate
    - render
    - componentDidUpdate
+- 组件怎么卸载
+```js
+ReactDOM.unmountComponentAtNode(document.querySelector("#root"));
+```
 
