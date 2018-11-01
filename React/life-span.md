@@ -8,10 +8,10 @@ import React,{Component} from "react";
 import propTypes from 'prop-types';
 class  Demo extends Component{
     getDefaultProps(){
-        
+        //设置默认的props，也可以用dufaultProps设置组件的默认属性.
     };
     getInitialState(){
-        
+        //在使用es6的class语法时是没有这个钩子函数的，可以直接在constructor中定义this.state。此时可以访问this.props
     }
    static defaultProps={
        //该对象会把属性放到了实例上
@@ -23,9 +23,11 @@ class  Demo extends Component{
     componentWillMount(){
         //子组件将要挂载
         //setState在这里只执行同步的，
+        //组件初始化时只调用，以后组件更新不调用，整个生命周期只调用一次，此时可以修改state。
         
     }
     render(){
+        //react最重要的步骤，创建虚拟dom，进行diff算法，更新dom树都在此进行。此时就不能更改state了
         //组件正在挂载
        
          
@@ -59,6 +61,7 @@ class  Demo extends Component{
     }
     componentWillUnmount(){
         //卸载的啥时候触发的钩子函数
+        //组件将要卸载时调用，一些事件监听和定时器需要在此时清除。
     }
     
 }
