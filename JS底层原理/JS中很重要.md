@@ -6,7 +6,27 @@
     - 私有变量：私有作用域下声明的变量，形参
     - 闭包有什么作用
 ```js
-//实现bind方法
+Function.prototype.myBind = function(thisArg) {
+  if (typeof this !== 'function') {
+    return
+  }
+  var _self = this;
+  var args = Array.prototype.slice.call(arguments, 1)
+  var fnNop = function () {} // 定义一个空函数
+  var fnBound = function () {
+    var _this = this instanceof _self ? this : thisArg;
+
+    return _self.apply(_this, args.concat(Array.prototype.slice.call(arguments)))
+  }
+  // 维护原型关系
+  if (this.prototype) {
+    fnNop.prototype = this.prototype;
+  }
+
+  fnBound.prototype = new fnNop();
+
+  return fnBound;
+}
 
 
 ```    
